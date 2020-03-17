@@ -1,2 +1,1 @@
-*.cs text diff=csharp
-*.html linguist-detectable=false
+*.* linguist-language=C#
