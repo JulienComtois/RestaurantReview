@@ -1,0 +1,43 @@
+﻿@model IEnumerable<RestaurantReview.Models.Restaurant>
+
+@{
+	ViewBag.Title = "Restaurant List";
+}
+
+<h2>Restaurant List</h2>
+
+
+<hr/>
+@Html.ActionLink("Add a Restaurant", "Create")
+<hr />
+<table class="table">
+	@{
+		int colorCtr = 0,
+			rowCtr = 0,
+			colCtr = 0;
+		string[] colors = {"tile purple", "tile red", "tile orange", "tile green", "tile blue"};
+	}
+	@foreach (var item in Model)
+	{
+		<a href="@Url.Action("Details", "Restaurants", new { id = item.Restaurant_Id })">
+			<div class="col-sm-4">
+				<div class="@colors[colorCtr]">
+					<h3 class="title">@item.Name</h3>
+					<p>@item.Genre</p>
+				</div>
+			</div>
+		</a>
+		colorCtr++;
+		colCtr++;
+		if (colCtr > 2)
+		{
+			colCtr = 0;
+			rowCtr++;
+		}
+		if (colorCtr > 4)
+		{
+			colorCtr = 0;
+		}
+	}
+</table>
+

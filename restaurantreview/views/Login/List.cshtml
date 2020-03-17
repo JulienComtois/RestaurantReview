@@ -1,0 +1,35 @@
+﻿@model IEnumerable<RestaurantReview.Models.User>
+
+@{
+	ViewBag.Title = "User List";
+}
+
+<h2>User List</h2>
+
+<br />
+<table class="table">
+			<tr>
+				<th>
+					@Html.DisplayNameFor(model => model.Username)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.Email)
+				</th>
+				<th></th>
+			</tr>
+
+		@foreach (var item in Model) {
+			<tr>
+				<td>
+					@Html.DisplayFor(modelItem => item.Username)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Email)
+				</td>
+				<td>
+					@Html.ActionLink("Edit", "Edit", new { id = item.Username }) | 
+					@Html.ActionLink("Delete", "Delete", new { id = item.Username })
+				</td>
+			</tr>
+		}
+</table>

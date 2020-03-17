@@ -1,0 +1,48 @@
+﻿@model IEnumerable<RestaurantReview.Models.Review>
+
+@{
+    ViewBag.Title = "Review list";
+}
+
+<h2>Review List</h2>
+<br />
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Rating)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Restaurant.Name)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Rating)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Restaurant.Name)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Review_Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Review_Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Review_Id })
+        </td>
+    </tr>
+}
+
+</table>

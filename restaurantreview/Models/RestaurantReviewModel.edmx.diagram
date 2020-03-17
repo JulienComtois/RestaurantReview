@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="61fdcd4cf6f84b18b9167218a7c2a87f" Name="Diagram1">
+        <EntityTypeShape EntityType="RestaurantReviewModel.Change" Width="1.5" PointX="5.25" PointY="6.375" />
+        <EntityTypeShape EntityType="RestaurantReviewModel.Restaurant" Width="1.5" PointX="3" PointY="1.875" />
+        <EntityTypeShape EntityType="RestaurantReviewModel.Review" Width="1.5" PointX="5.25" PointY="2.75" />
+        <EntityTypeShape EntityType="RestaurantReviewModel.User" Width="1.5" PointX="0.75" PointY="3.125" />
+        <AssociationConnector Association="RestaurantReviewModel.FK__Changes__Restaur__70DDC3D8" />
+        <AssociationConnector Association="RestaurantReviewModel.FK__Restauran__Creat__66603565" />
+        <AssociationConnector Association="RestaurantReviewModel.FK__Review__Restaura__6D0D32F4" />
+        <AssociationConnector Association="RestaurantReviewModel.FK__Review__Created___6E01572D" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

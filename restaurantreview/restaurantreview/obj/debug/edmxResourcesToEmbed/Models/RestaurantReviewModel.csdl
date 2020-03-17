@@ -1,0 +1,141 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="RestaurantReviewModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Restaurant">
+    <Key>
+      <PropertyRef Name="Restaurant_Id" />
+    </Key>
+    <Property Name="Restaurant_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Genre" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Price" Type="Byte" Nullable="false" />
+    <Property Name="Geographic_Location" Type="Geography" Nullable="false" />
+    <Property Name="Postal_Code" Type="String" MaxLength="9" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Country" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Province" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="City" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Street_Name" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Street_Number" Type="Int32" Nullable="false" />
+    <Property Name="Creation_Date" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Created_By" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Views" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Changes" Relationship="Self.FK__Changes__Restaur__70DDC3D8" FromRole="Restaurant" ToRole="Changes" />
+    <NavigationProperty Name="User" Relationship="Self.FK__Restauran__Creat__66603565" FromRole="Restaurant" ToRole="User" />
+    <NavigationProperty Name="Reviews" Relationship="Self.FK__Review__Restaura__6D0D32F4" FromRole="Restaurant" ToRole="Review" />
+    <Property Name="Average_Rating" Type="Decimal" Precision="3" Scale="1" />
+  </EntityType>
+  <EntityType Name="Review">
+    <Key>
+      <PropertyRef Name="Review_Id" />
+    </Key>
+    <Property Name="Review_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Restaurant_Id" Type="Int32" Nullable="false" />
+    <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Title" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Created_By" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Rating" Type="Byte" Nullable="false" />
+    <NavigationProperty Name="Restaurant" Relationship="Self.FK__Review__Restaura__6D0D32F4" FromRole="Review" ToRole="Restaurant" />
+    <NavigationProperty Name="User" Relationship="Self.FK__Review__Created___6E01572D" FromRole="Review" ToRole="User" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="Username" />
+    </Key>
+    <Property Name="Username" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="255" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Restaurants" Relationship="Self.FK__Restauran__Creat__66603565" FromRole="User" ToRole="Restaurant" />
+    <NavigationProperty Name="Reviews" Relationship="Self.FK__Review__Created___6E01572D" FromRole="User" ToRole="Review" />
+  </EntityType>
+  <EntityType Name="Change">
+    <Key>
+      <PropertyRef Name="Restaurant_Id" />
+      <PropertyRef Name="Changed_By" />
+      <PropertyRef Name="Change_Date" />
+      <PropertyRef Name="Genre" />
+      <PropertyRef Name="Price" />
+    </Key>
+    <Property Name="Restaurant_Id" Type="Int32" Nullable="false" />
+    <Property Name="Changed_By" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Change_Date" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Genre" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Price" Type="Byte" Nullable="false" />
+    <NavigationProperty Name="Restaurant" Relationship="Self.FK__Changes__Restaur__70DDC3D8" FromRole="Changes" ToRole="Restaurant" />
+  </EntityType>
+  <Association Name="FK__Changes__Restaur__70DDC3D8">
+    <End Role="Restaurant" Type="Self.Restaurant" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Changes" Type="Self.Change" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Restaurant">
+        <PropertyRef Name="Restaurant_Id" />
+      </Principal>
+      <Dependent Role="Changes">
+        <PropertyRef Name="Restaurant_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Restauran__Creat__66603565">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="Restaurant" Type="Self.Restaurant" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Username" />
+      </Principal>
+      <Dependent Role="Restaurant">
+        <PropertyRef Name="Created_By" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Review__Restaura__6D0D32F4">
+    <End Role="Restaurant" Type="Self.Restaurant" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Review" Type="Self.Review" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Restaurant">
+        <PropertyRef Name="Restaurant_Id" />
+      </Principal>
+      <Dependent Role="Review">
+        <PropertyRef Name="Restaurant_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Review__Created___6E01572D">
+    <End Role="User" Type="Self.User" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Review" Type="Self.Review" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Username" />
+      </Principal>
+      <Dependent Role="Review">
+        <PropertyRef Name="Created_By" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="RestaurantEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Restaurants" EntityType="Self.Restaurant" />
+    <EntitySet Name="Reviews" EntityType="Self.Review" />
+    <EntitySet Name="Users" EntityType="Self.User" />
+    <EntitySet Name="Changes" EntityType="Self.Change" />
+    <AssociationSet Name="FK__Changes__Restaur__70DDC3D8" Association="Self.FK__Changes__Restaur__70DDC3D8">
+      <End Role="Restaurant" EntitySet="Restaurants" />
+      <End Role="Changes" EntitySet="Changes" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Restauran__Creat__66603565" Association="Self.FK__Restauran__Creat__66603565">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Restaurant" EntitySet="Restaurants" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Review__Restaura__6D0D32F4" Association="Self.FK__Review__Restaura__6D0D32F4">
+      <End Role="Restaurant" EntitySet="Restaurants" />
+      <End Role="Review" EntitySet="Reviews" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Review__Created___6E01572D" Association="Self.FK__Review__Created___6E01572D">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Review" EntitySet="Reviews" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

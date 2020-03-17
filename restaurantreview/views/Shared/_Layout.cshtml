@@ -1,0 +1,63 @@
+﻿@using RestaurantReview.Utility;
+
+@{
+    bool isAdmin = Util.IsAdmin(User.Identity.Name);
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Timmy's Reviews</title>
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <script src="~/Scripts/modernizr-2.6.2.js"></script>
+    @RenderSection("Scripts", false)
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Timmy's Reviews", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Restaurants ", "Index", "Restaurants", new { area = "" }, new { @class = "navbar-brand" })
+				<span class="glyphicons glyphicons-search"></span>
+                @Html.ActionLink("Search ", "Search", "Restaurants", new { area = "" }, new { @class = "navbar-brand" })
+				@if (isAdmin)
+				{
+					@Html.ActionLink("User List ", "List", "Login", null, new { @class = "navbar-brand" })
+				}
+                @if (User.Identity.Name == "")
+                {
+                @Html.ActionLink("Login", "Login", "Login", null, new { @class = "navbar-brand navbar-right" })
+                }
+                else
+                {               
+                    @Html.ActionLink(User.Identity.Name, "Edit", "Login", new { id = User.Identity.Name }, new { @class = "navbar-brand" })
+                    @Html.ActionLink("Logout", "Logout", "Login", null, new { @class = "navbar-brand" })
+              
+                }
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Julien Comtois & Rafik Ifrani</p>
+        </footer>
+    </div>
+
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+</body>
+</html>

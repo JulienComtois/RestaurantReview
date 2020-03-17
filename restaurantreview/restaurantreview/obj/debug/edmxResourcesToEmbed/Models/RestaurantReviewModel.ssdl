@@ -1,0 +1,143 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="RestaurantReviewModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <!--Errors Found During Generation:
+warning 6002: The table/view '1020645.dbo.Changes' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Changes">
+    <Key>
+      <PropertyRef Name="Restaurant_Id" />
+      <PropertyRef Name="Changed_By" />
+      <PropertyRef Name="Change_Date" />
+      <PropertyRef Name="Genre" />
+      <PropertyRef Name="Price" />
+    </Key>
+    <Property Name="Restaurant_Id" Type="int" Nullable="false" />
+    <Property Name="Changed_By" Type="nvarchar" MaxLength="25" Nullable="false" />
+    <Property Name="Change_Date" Type="date" Nullable="false" />
+    <Property Name="Genre" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="Price" Type="tinyint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Restaurant">
+    <Key>
+      <PropertyRef Name="Restaurant_Id" />
+    </Key>
+    <Property Name="Restaurant_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="40" Nullable="false" />
+    <Property Name="Genre" Type="nvarchar" MaxLength="15" Nullable="false" />
+    <Property Name="Price" Type="tinyint" Nullable="false" />
+    <Property Name="Geographic_Location" Type="geography" Nullable="false" />
+    <Property Name="Postal_Code" Type="nvarchar" MaxLength="9" Nullable="false" />
+    <Property Name="Country" Type="nvarchar" MaxLength="30" Nullable="false" />
+    <Property Name="Province" Type="nvarchar" MaxLength="30" Nullable="false" />
+    <Property Name="City" Type="nvarchar" MaxLength="30" Nullable="false" />
+    <Property Name="Street_Name" Type="nvarchar" MaxLength="40" Nullable="false" />
+    <Property Name="Street_Number" Type="int" Nullable="false" />
+    <Property Name="Creation_Date" Type="date" Nullable="false" />
+    <Property Name="Created_By" Type="nvarchar" MaxLength="25" Nullable="false" />
+    <Property Name="Views" Type="int" Nullable="false" />
+    <Property Name="Average_Rating" Type="numeric" Precision="3" Scale="1" />
+  </EntityType>
+  <EntityType Name="Review">
+    <Key>
+      <PropertyRef Name="Review_Id" />
+    </Key>
+    <Property Name="Review_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Restaurant_Id" Type="int" Nullable="false" />
+    <Property Name="Content" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Title" Type="nvarchar" MaxLength="25" Nullable="false" />
+    <Property Name="Date" Type="date" Nullable="false" />
+    <Property Name="Created_By" Type="nvarchar" MaxLength="25" Nullable="false" />
+    <Property Name="Rating" Type="tinyint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="Username" />
+    </Key>
+    <Property Name="Username" Type="nvarchar" MaxLength="25" Nullable="false" />
+    <Property Name="Password" Type="char" MaxLength="255" Nullable="false" />
+    <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <Association Name="FK__Changes__Restaur__70DDC3D8">
+    <End Role="Restaurant" Type="Self.Restaurant" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Changes" Type="Self.Changes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Restaurant">
+        <PropertyRef Name="Restaurant_Id" />
+      </Principal>
+      <Dependent Role="Changes">
+        <PropertyRef Name="Restaurant_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Restauran__Creat__66603565">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="Restaurant" Type="Self.Restaurant" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Username" />
+      </Principal>
+      <Dependent Role="Restaurant">
+        <PropertyRef Name="Created_By" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Review__Created___6E01572D">
+    <End Role="User" Type="Self.User" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Review" Type="Self.Review" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Username" />
+      </Principal>
+      <Dependent Role="Review">
+        <PropertyRef Name="Created_By" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Review__Restaura__6D0D32F4">
+    <End Role="Restaurant" Type="Self.Restaurant" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Review" Type="Self.Review" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Restaurant">
+        <PropertyRef Name="Restaurant_Id" />
+      </Principal>
+      <Dependent Role="Review">
+        <PropertyRef Name="Restaurant_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="RestaurantReviewModelStoreContainer">
+    <EntitySet Name="Restaurant" EntityType="Self.Restaurant" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Review" EntityType="Self.Review" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Changes" EntityType="Self.Changes" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [Changes].[Restaurant_Id] AS [Restaurant_Id], 
+    [Changes].[Changed_By] AS [Changed_By], 
+    [Changes].[Change_Date] AS [Change_Date], 
+    [Changes].[Genre] AS [Genre], 
+    [Changes].[Price] AS [Price]
+    FROM [dbo].[Changes] AS [Changes]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK__Changes__Restaur__70DDC3D8" Association="Self.FK__Changes__Restaur__70DDC3D8">
+      <End Role="Restaurant" EntitySet="Restaurant" />
+      <End Role="Changes" EntitySet="Changes" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Restauran__Creat__66603565" Association="Self.FK__Restauran__Creat__66603565">
+      <End Role="User" EntitySet="User" />
+      <End Role="Restaurant" EntitySet="Restaurant" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Review__Created___6E01572D" Association="Self.FK__Review__Created___6E01572D">
+      <End Role="User" EntitySet="User" />
+      <End Role="Review" EntitySet="Review" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Review__Restaura__6D0D32F4" Association="Self.FK__Review__Restaura__6D0D32F4">
+      <End Role="Restaurant" EntitySet="Restaurant" />
+      <End Role="Review" EntitySet="Review" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

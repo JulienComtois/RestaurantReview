@@ -1,0 +1,156 @@
+﻿/*body 
+{
+    padding-top: 50px;
+    padding-bottom: 20px;
+	background-image: url("bg.jpg");
+}*/
+/* Set padding to keep content from hitting the edges */
+.body-content {
+  padding-left: 15px;
+  padding-right: 15px;
+  background: white;
+  opacity: 0.8;
+  margin-top: 3%;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select {
+  max-width: 280px;
+}
+
+textarea {
+  width: 400px;
+  height: 500px;
+  border: 1px groove black;
+  resize: none;
+}
+
+.bold {
+  font-weight: bold;
+  display: inline;
+}
+
+footer
+{
+	text-align: right;
+}
+
+/*
+.tile
+{
+	float:left;
+	margin: 2% 0 2% 2.6%;
+	width: 30%;
+	height: 100px;
+	background-color: blue;
+	color: white;
+	display: block;
+}*/
+#enterPostalCode {
+  margin-top: 3%;
+  display: none;
+  text-align: center;
+}
+
+body {
+  font-family: "Open Sans", "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.5em;
+  font-weight: 400;
+  padding-top: 50px;
+  padding-bottom: 20px;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-color: #999999;
+  background-image: url("bg.jpg");
+}
+
+p, span, a, ul, li, button {
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+}
+
+strong {
+  font-weight: 600;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Open Sans", "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serif;
+  line-height: 1.5em;
+  font-weight: 300;
+}
+
+strong {
+  font-weight: 400;
+}
+
+.errorMessage
+{
+	color: red;
+}
+
+.tile {
+  width: 100%;
+  display: inline-block;
+  box-sizing: border-box;
+  background: #fff;
+  padding: 20px;
+  margin-bottom: 30px;
+}
+
+.tile .title {
+  margin-top: 0px;
+}
+
+.tile.purple, .tile.blue, .tile.red, .tile.orange, .tile.green {
+  color: #fff;
+}
+
+.tile.purple {
+  background: #5133AB;
+}
+
+.tile.purple:hover {
+  background: #3e2784;
+}
+
+.tile.red {
+  background: #AC193D;
+}
+
+.tile.red:hover {
+  background: #7f132d;
+}
+
+.tile.green {
+  background: #00A600;
+}
+
+.tile.green:hover {
+  background: #007300;
+}
+
+.tile.blue {
+  background: #2672EC;
+}
+
+.tile.blue:hover {
+  background: #125acd;
+}
+
+.tile.orange {
+  background: #DC572E;
+}
+
+.tile.orange:hover {
+  background: #b8431f;
+}
+
+.noLinkStyle
+{
+    color: black;
+    text-decoration: none;
+}
